@@ -12,7 +12,7 @@ import {
   type LandingBonusVariant,
 } from "../../types/credits-game";
 
-export const CREDITS_GAME_LANDING_ATTEMPTS = "/credits-game-landing-attempts";
+export const CREDITS_GAME_LANDING_ATTEMPTS = "/";
 export const CREDITS_GAME_LANDING_INFINITE = "/credits-game-landing-infinite";
 export const CREDITS_GAME_INTERACTION_ATTEMPTS =
   "/credits-game-interaction-attempts";
