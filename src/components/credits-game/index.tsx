@@ -284,15 +284,15 @@ export const CreditsGame = ({ variant }: Props) => {
       {isBlocked && timeLeft && isVariantAttempts && (
         <CreditsGameTimer timeLeft={timeLeft} />
       )}
-      <CreditsGameAlertContainer>
-        {isGameAlertVisible && (
+      {isGameAlertVisible && (
+        <CreditsGameAlertContainer>
           <CreditsGameAlert
             variant={variant}
             bonusStatuses={bonusStatuses}
             attemptCount={attemptCount}
           />
-        )}
-      </CreditsGameAlertContainer>
+        </CreditsGameAlertContainer>
+      )}
     </div>
   );
 };
