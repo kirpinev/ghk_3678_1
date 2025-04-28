@@ -47,7 +47,9 @@ export const CreditsGame = ({ variant }: Props) => {
   const { set: setTimeoutSafe } = useTimeoutSafe();
   const [randomSmileVariants, setRandomSmileVariants] =
     useState(getRandomSmiles());
-  const [attemptCount, setAttemptCount] = useState(MAX_ATTEMPTS);
+  const [attemptCount, setAttemptCount] = useState(
+    LS.getItem(LSKeys.MAX_ATTEMPTS, MAX_ATTEMPTS),
+  );
   const [lockId, setLockId] = useState(INITIAL_LOCK_ID);
   const [bonusStatuses, setBonusStatuses] = useState<
     Record<BonusKeys, boolean>
@@ -147,7 +149,13 @@ export const CreditsGame = ({ variant }: Props) => {
   }, [attemptCount, randomSmileVariants, variant, setTimeoutSafe]);
 
   const checkAnswer = useCallback(() => {
-    setAttemptCount((prevState) => prevState - 1);
+    setAttemptCount((prevState) => {
+      const newValue = prevState - 1;
+
+      LS.setItem(LSKeys.MAX_ATTEMPTS, newValue);
+
+      return newValue;
+    });
     setCircleImage(circleOrange);
     setIsLockColorChange(true);
     changeLockColorToOrange();
@@ -233,6 +241,7 @@ export const CreditsGame = ({ variant }: Props) => {
         if (timeString === null) {
           clearInterval(interval);
           LS.deleteItem(LSKeys.CREDITS_GAME_LAST_ATTEMPT);
+          LS.deleteItem(LSKeys.MAX_ATTEMPTS);
           setIsBlocked(false);
           window.location.reload();
         } else {

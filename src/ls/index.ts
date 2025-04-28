@@ -11,6 +11,7 @@ export const enum LSKeys {
   PAYMENT_DATE = "paymentDate",
   PROTECTION = "protection",
   PAYMENT_SCHEDULE = "paymentSchedule",
+  MAX_ATTEMPTS = "maxAttempts_3678_1",
 }
 
 export interface LSData {
@@ -24,6 +25,7 @@ export interface LSData {
   [LSKeys.PAYMENT_DATE]: boolean | string | null;
   [LSKeys.PROTECTION]: boolean | string | null;
   [LSKeys.PAYMENT_SCHEDULE]: boolean | string | null;
+  [LSKeys.MAX_ATTEMPTS]: number;
 }
 
 const getItem = <K extends LSKeys>(

@@ -5,6 +5,7 @@ import { Gap } from "@alfalab/core-components/gap";
 import {
   CREDITS_GAME_INTERACTION_ATTEMPTS,
   CREDITS_GAME_INTERACTION_INFINITE,
+  CREDITS_GAME_STUB,
   LANDING_BONUS_HREFS,
 } from "../../constants/credits-game";
 import { type LandingVariant } from "../../types/credits-game";
@@ -43,7 +44,9 @@ export const CreditsGameLanding = ({ variant }: Props) => {
   };
 
   useEffect(() => {
-    if (LS.getItem(LSKeys.CREDITS_GAME_BONUS_CLICK, false)) {
+    if (LS.getItem(LSKeys.CREDITS_GAME_FINAL_CLICK, false)) {
+      navigate(CREDITS_GAME_STUB);
+    } else if (LS.getItem(LSKeys.CREDITS_GAME_BONUS_CLICK, false)) {
       redirectToLandingWithBonus();
     } else if (LS.getItem(LSKeys.CREDITS_GAME_LANDING_CLICK, false)) {
       navigate(`${gameVariantHref}`);
