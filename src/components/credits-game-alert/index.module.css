@@ -1,0 +1,47 @@
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    padding: 16px;
+    bottom: 72px;
+    left: 0;
+    animation: appear 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.alert {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px;
+    background: #212124;
+    border-radius: 32px;
+}
+
+.timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.textImageWrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.textWrapper {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,43 @@
+.layout {
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image {
+    width: 230px;
+}
+
+.descriptions {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-color: #e7f9f8;
+    width: 100%;
+    border-radius: 24px;
+    padding: 24px;
+}
+
+.descriptionsTransparent {
+    background-color: transparent;
+    border: 1px solid black;
+}
+
+.description {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+}

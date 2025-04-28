@@ -1,0 +1,25 @@
+.layout {
+    text-align: center;
+    z-index: 10;
+}
+
+.attemptsContainer {
+    display: flex;
+    position: relative;
+    gap: 16px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.iconContainer {
+    position: absolute;
+    right: -40px;
+    display: flex;
+    align-self: center;
+}
+
+.bonusesContainer {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}

@@ -1,0 +1,145 @@
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bounceUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-8px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes appear {
+    0% {
+        width: 60px;
+        opacity: 0;
+    }
+    50% {
+        width: 40px;
+        opacity: 1;
+    }
+    100% {
+        width: 60px;
+        opacity: 1;
+    }
+}
+
+@keyframes bounceDown {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(8px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 208px;
+    width: 72px;
+    border-radius: 20px;
+    background-color: #e6ecf7;
+    padding: 8px;
+    background-image: url('../../assets/credits-game/shadow_default.png');
+    background-repeat: no-repeat;
+    background-position: center 65%;
+    transition: background-color 200ms ease-in;
+}
+
+.layout.error {
+    background-color: #fbd8a7;
+    background-image: url('../../assets/credits-game/shadow_error.png');
+}
+
+.layout.success {
+    background-color: #fbeaa7;
+    background-image: url('../../assets/credits-game/shadow_success.png');
+}
+
+.buttonUp {
+    position: relative;
+    opacity: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 150ms ease-in;
+}
+
+.buttonUp:active {
+    animation: bounceUp 150ms ease-in;
+}
+
+.buttonDown {
+    position: relative;
+    opacity: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 150ms ease-in;
+}
+
+.buttonDown:active {
+    animation: bounceDown 150ms ease-in;
+}
+
+.image {
+    width: 60px;
+    z-index: 20;
+    animation: appear 200ms ease-in;
+}
+
+.loader {
+    animation: rotate 350ms linear infinite;
+}
+
+.status {
+    animation: fadeUp 200ms ease-in;
+}
+
+.visible {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.hidden {
+    display: none;
+}
+
+.hiddenWithOpacity {
+    visibility: hidden;
+}
+
+.statusContainer {
+    height: 48px;
+}

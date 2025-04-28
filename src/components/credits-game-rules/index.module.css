@@ -1,0 +1,66 @@
+.rulesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.rule {
+    display: flex;
+    gap: 16px;
+}
+
+.iconContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.iconContainerCentered {
+    margin-top: 20px;
+}
+
+.iconContainer:nth-child(1) .wand {
+    background: linear-gradient(#ff1913, #ff5413);
+}
+
+.iconContainer:nth-child(2) .wand {
+    background: linear-gradient(#ff5413, #ff8917);
+}
+
+.iconContainer:nth-child(3) .wand {
+    background: linear-gradient(#ff8917, #ffa214, #ffba12);
+}
+
+.infoContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.wand {
+    margin-top: -2px;
+    margin-bottom: -2px;
+    width: 4px;
+    height: 66px;
+}
+
+.statusContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.caption {
+    display: flex;
+    flex-direction: column;
+}

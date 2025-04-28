@@ -1,0 +1,30 @@
+@keyframes rotate {
+    from {
+        transform: translate(-50%, -50%) scale(1.5) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1.5) rotate(-360deg);
+    }
+}
+
+.layout {
+    position: relative;
+    border-radius: 32px;
+    background: linear-gradient(#fff, #eff3fa);
+    overflow: hidden;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    z-index: 2;
+}
+
+.image {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    animation: rotate 20s linear infinite;
+}

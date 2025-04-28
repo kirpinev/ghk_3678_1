@@ -1,0 +1,12 @@
+.bottomButton {
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    padding: 16px;
+    bottom: 0;
+    left: 0;
+}
+
+.text {
+    color: red;
+}
