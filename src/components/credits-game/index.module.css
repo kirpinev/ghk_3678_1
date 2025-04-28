@@ -1,5 +1,5 @@
 .layout {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 88px);
     display: flex;
     flex-direction: column;
 }
