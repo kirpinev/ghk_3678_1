@@ -9,7 +9,11 @@ import { Typography } from "@alfalab/core-components/typography";
 import rublesRound from "../../assets/credits-game/ruble_round.png";
 import rublesSmall from "../../assets/credits-game/ruble_small.png";
 import rubles from "../../assets/credits-game/rubles.png";
-import { CREDITS_GAME_STUB, INTEREST_RATE } from "../../constants/credits-game";
+import {
+  BONUS_CONFIG,
+  CREDITS_GAME_STUB,
+  INTEREST_RATE,
+} from "../../constants/credits-game";
 import { LS, LSKeys } from "../../ls";
 import { type LandingBonusVariant } from "../../types/credits-game";
 import { CreditsGameFinalBonusDescription } from "../credits-game-final-bonus-description";
@@ -17,6 +21,7 @@ import { CreditsGameStartButton } from "../credits-game-start-button";
 import { useNavigate } from "react-router";
 
 import styles from "./index.module.css";
+import { sendDataToGA } from "../../utils/events.ts";
 
 type Props = {
   variant: LandingBonusVariant;
@@ -75,6 +80,7 @@ export const CreditsGameFinal = ({ variant }: Props) => {
   const [amount, setAmount] = useState(500_000);
   const [years, setYears] = useState(5);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const finalPayment = useMemo(
     () => Math.round(calcPayment(amount, INTEREST_RATE, years * 12)),
@@ -106,9 +112,23 @@ export const CreditsGameFinal = ({ variant }: Props) => {
     setYears(value);
 
   const sendBid = () => {
-    LS.setItem(LSKeys.CREDITS_GAME_FINAL_CLICK, true);
+    const activeBonus = BONUS_CONFIG.find(
+      ({ bonusVariant }) =>
+        bonusVariant ===
+        LS.getItem(LSKeys.CREDITS_GAME_BONUS_VARIANT, "noOptions"),
+    );
 
-    navigate(CREDITS_GAME_STUB);
+    setIsLoading(true);
+    sendDataToGA({
+      win_option: activeBonus ? activeBonus.win_option : "nothing",
+      srok_kredita: String(years),
+      sum_cred: String(amount),
+      id: LS.getItem(LSKeys.USER_UUID, ""),
+    }).then(() => {
+      setIsLoading(false);
+      LS.setItem(LSKeys.CREDITS_GAME_FINAL_CLICK, true);
+      navigate(CREDITS_GAME_STUB);
+    });
   };
 
   return (
@@ -207,7 +227,11 @@ export const CreditsGameFinal = ({ variant }: Props) => {
       </div>
 
       <Gap size={128} />
-      <CreditsGameStartButton onClick={sendBid} text="Отправить заявку" />
+      <CreditsGameStartButton
+        isLoading={isLoading}
+        onClick={sendBid}
+        text="Отправить заявку"
+      />
     </div>
   );
 };

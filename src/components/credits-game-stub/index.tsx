@@ -3,8 +3,25 @@ import { Typography } from "@alfalab/core-components/typography";
 import { ButtonMobile } from "@alfalab/core-components/button/mobile";
 import styles from "./index.module.css";
 import { Gap } from "@alfalab/core-components/gap";
+import { BONUS_CONFIG } from "../../constants/credits-game";
+import { LS, LSKeys } from "../../ls";
 
 export const CreditsGameStub = () => {
+  const getOneMonthSub = () => {
+    const activeBonus = BONUS_CONFIG.find(
+      ({ bonusVariant }) =>
+        bonusVariant ===
+        LS.getItem(LSKeys.CREDITS_GAME_BONUS_VARIANT, "noOptions"),
+    );
+
+    window.gtag("event", "3678_podpiska_click", {
+      variant_name: activeBonus
+        ? activeBonus.variantName
+        : "ghk_3678_1_nothing",
+      id: LS.getItem(LSKeys.USER_UUID, ""),
+    });
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -31,7 +48,7 @@ export const CreditsGameStub = () => {
       </div>
 
       <div className={styles.button}>
-        <ButtonMobile block view="primary" href="" onClick={() => {}}>
+        <ButtonMobile block view="primary" href="" onClick={getOneMonthSub}>
           1 месяц подписки бесплатно
         </ButtonMobile>
         <Gap size={16} />

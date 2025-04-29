@@ -137,6 +137,7 @@
 }
 
 .wrapper {
+    overflow: hidden;
     position: relative;
     height: 100vh;
     display: flex;

@@ -12,6 +12,8 @@ export const enum LSKeys {
   PROTECTION = "protection",
   PAYMENT_SCHEDULE = "paymentSchedule",
   MAX_ATTEMPTS = "maxAttempts_3678_1",
+  TOTAL_WIN = "total_win_3678_1",
+  USER_UUID = "userUUID_3678_1",
 }
 
 export interface LSData {
@@ -26,6 +28,8 @@ export interface LSData {
   [LSKeys.PROTECTION]: boolean | string | null;
   [LSKeys.PAYMENT_SCHEDULE]: boolean | string | null;
   [LSKeys.MAX_ATTEMPTS]: number;
+  [LSKeys.TOTAL_WIN]: boolean;
+  [LSKeys.USER_UUID]: string;
 }
 
 const getItem = <K extends LSKeys>(

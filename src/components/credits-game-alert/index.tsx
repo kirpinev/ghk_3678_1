@@ -4,13 +4,14 @@ import { ButtonMobile } from "@alfalab/core-components/button/mobile";
 import { Typography } from "@alfalab/core-components/typography";
 
 import noBonusAlert from "../../assets/credits-game/no_bonus_alert.svg";
-import { BONUS_CONFIG } from "../../constants/credits-game";
-
-import { CREDITS_GAME_FINAL_NO_OPTIONS } from "../../constants/credits-game";
+import {
+  BONUS_CONFIG,
+  CREDITS_GAME_FINAL_NO_OPTIONS,
+} from "../../constants/credits-game";
 import { LS, LSKeys } from "../../ls";
 import {
-  type LandingVariant,
   type LandingBonusVariant,
+  type LandingVariant,
 } from "../../types/credits-game";
 import { useNavigate } from "react-router";
 
@@ -45,6 +46,15 @@ export const CreditsGameAlert = ({
   const [isNoBonus, setIsNoBonus] = useState(false);
 
   const redirectToBonusLanding = () => {
+    const activeBonus = BONUS_CONFIG.find(({ key }) => bonusStatuses[key]);
+
+    window.gtag("event", "3678_award_click", {
+      variant_name: activeBonus
+        ? activeBonus.variantName
+        : "ghk_3678_1_nothing",
+      id: LS.getItem(LSKeys.USER_UUID, ""),
+    });
+
     LS.setItem(LSKeys.CREDITS_GAME_BONUS_CLICK, true);
     LS.setItem(
       LSKeys.CREDITS_GAME_BONUS_VARIANT,
@@ -75,6 +85,12 @@ export const CreditsGameAlert = ({
       setBonusVariant("noOptions");
     }
   }, [bonusStatuses, attemptCount, variant]);
+
+  useEffect(() => {
+    if (LS.getItem(LSKeys.CREDITS_GAME_BONUS_CLICK, false)) {
+      navigate(bonusLandingHref);
+    }
+  }, []);
 
   return (
     <div className={styles.alert}>

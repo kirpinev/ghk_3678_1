@@ -9,7 +9,12 @@ declare global {
   }
 }
 
-type Payload = { plan_name: string };
+type Payload = {
+  id: string;
+  win_option: string;
+  sum_cred: string;
+  srok_kredita: string;
+};
 
 export const sendDataToGA = async (payload: Payload) => {
   try {
@@ -19,14 +24,13 @@ export const sendDataToGA = async (payload: Payload) => {
     }-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 
     await fetch(
-      "https://script.google.com/macros/s/AKfycbyjHKaaXH6pHem-XBGcMsFOgokl_DgRk0ZzlHFgIUMUjbdR1QO9CDErK9t3oUzM4wU_/exec",
+      "https://script.google.com/macros/s/AKfycbzPKluFIZ9zZ1_HmivaJMF_NU7oIg8D50XaxGruKgI6mgLkfxH0xTCcWz3b-whvHt3S/exec",
       {
         redirect: "follow",
         method: "POST",
         body: JSON.stringify({
           date,
           variant: "ghk_3678_1",
-          form_name: "forms1",
           ...payload,
         }),
         headers: {

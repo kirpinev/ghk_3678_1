@@ -10,6 +10,7 @@ import lockTop from "../../assets/credits-game/lock_top.svg";
 import lockTopOrange from "../../assets/credits-game/lock_top_orange.svg";
 import {
   ANSWER_COMBINATION,
+  BONUS_CONFIG,
   INITIAL_LOCK_ID,
   MAX_ATTEMPTS,
   TIME_FOR_GAME_ANIMATION_DELAYS,
@@ -23,6 +24,7 @@ import { CreditsGameBonusStatus } from "../credits-game-bonus-status";
 import { CreditsGameLock } from "../credits-game-lock";
 import { CreditsGameStartButton } from "../credits-game-start-button";
 import { CreditsGameTimer } from "../credits-game-timer";
+import { useNavigate } from "react-router";
 
 import styles from "./index.module.css";
 
@@ -45,8 +47,11 @@ type Props = {
 
 export const CreditsGame = ({ variant }: Props) => {
   const { set: setTimeoutSafe } = useTimeoutSafe();
-  const [randomSmileVariants, setRandomSmileVariants] =
-    useState(getRandomSmiles());
+  const [randomSmileVariants, setRandomSmileVariants] = useState(
+    LS.getItem(LSKeys.TOTAL_WIN, false)
+      ? ANSWER_COMBINATION
+      : getRandomSmiles(),
+  );
   const [attemptCount, setAttemptCount] = useState(
     LS.getItem(LSKeys.MAX_ATTEMPTS, MAX_ATTEMPTS),
   );
@@ -76,7 +81,14 @@ export const CreditsGame = ({ variant }: Props) => {
   const [isGameAlertVisible, setIsGameAlertVisible] = useState(false);
   const [timeLeft, setTimeLeft] = useState("");
   const [isBlocked, setIsBlocked] = useState(false);
+  const navigate = useNavigate();
+
   const isVariantAttempts = variant === "attempts";
+  const isTotalWin =
+    bonusStatuses.bonus1 &&
+    bonusStatuses.bonus2 &&
+    bonusStatuses.bonus3 &&
+    bonusStatuses.bonus4;
 
   const showVariantButton = useCallback(() => {
     setIsVariantButtonVisible(true);
@@ -134,6 +146,10 @@ export const CreditsGame = ({ variant }: Props) => {
       result[`bonus${i + 1}`] = true;
     }
 
+    if (result.bonus1 && result.bonus2 && result.bonus3 && result.bonus4) {
+      LS.setItem(LSKeys.TOTAL_WIN, true);
+    }
+
     setBonusStatuses(result);
     setIsGameAlertVisible(true);
 
@@ -149,6 +165,11 @@ export const CreditsGame = ({ variant }: Props) => {
   }, [attemptCount, randomSmileVariants, variant, setTimeoutSafe]);
 
   const checkAnswer = useCallback(() => {
+    window.gtag("event", "3678_open_lock_click", {
+      variant_name: "ghk_3678_1",
+      id: LS.getItem(LSKeys.USER_UUID, ""),
+    });
+
     setAttemptCount((prevState) => {
       const newValue = prevState - 1;
 
@@ -168,6 +189,15 @@ export const CreditsGame = ({ variant }: Props) => {
   }, [changeLockColorToOrange]);
 
   const refreshGame = useCallback(() => {
+    const activeBonus = BONUS_CONFIG.find(({ key }) => bonusStatuses[key]);
+
+    window.gtag("event", "3678_again_click", {
+      variant_name: activeBonus
+        ? activeBonus.variantName
+        : "ghk_3678_1_nothing",
+      id: LS.getItem(LSKeys.USER_UUID, ""),
+    });
+
     setLockId(attemptCount);
     setCircleImage(circleGray);
     changeLockColorToGray();
@@ -185,7 +215,7 @@ export const CreditsGame = ({ variant }: Props) => {
     setIsReloadingLock(true);
     setIsGameAlertVisible(false);
     setIsVariantButtonVisible(false);
-  }, [attemptCount, changeLockColorToGray]);
+  }, [attemptCount, changeLockColorToGray, bonusStatuses]);
 
   const getTimeUntilNextDay = (lastAttemptISO: string) => {
     const last = new Date(lastAttemptISO);
@@ -255,15 +285,51 @@ export const CreditsGame = ({ variant }: Props) => {
     return () => setIsBlocked(false);
   }, [attemptCount, variant]);
 
+  useEffect(() => {
+    if (isTotalWin) {
+      setIsBlocked(true);
+    }
+  }, [bonusStatuses]);
+
+  useEffect(() => {
+    if (LS.getItem(LSKeys.TOTAL_WIN, false)) {
+      setBonusStatuses({
+        bonus1: true,
+        bonus2: true,
+        bonus3: true,
+        bonus4: true,
+      });
+      setIsGameAlertVisible(true);
+      setLockImage({
+        top: lockTopOrange,
+        bottom: lockBottomOrange,
+      });
+      setCircleImage(circleOrange);
+      setIsAnswerChecking(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (LS.getItem(LSKeys.CREDITS_GAME_BONUS_CLICK, false)) {
+      const activeBonus = BONUS_CONFIG.find(
+        ({ bonusVariant }) =>
+          bonusVariant ===
+          LS.getItem(LSKeys.CREDITS_GAME_BONUS_VARIANT, LSKeys.NO_OPTIONS),
+      );
+
+      navigate(activeBonus?.href as string);
+    }
+  }, [bonusStatuses]);
+
   return (
     <div className={styles.layout}>
       <Gap size={16} />
       <CreditsGameBonusStatus
         variant={variant}
-        attemptCount={isBlocked && isVariantAttempts ? 0 : attemptCount}
+        attemptCount={attemptCount}
         bonusStatuses={bonusStatuses}
       />
-      <Gap size={16} />
+      <Gap size={2} />
       <CreditsGameLock
         lockTopImage={lockImage.top}
         lockBottomImage={lockImage.bottom}
@@ -294,7 +360,7 @@ export const CreditsGame = ({ variant }: Props) => {
         <CreditsGameTimer timeLeft={timeLeft} />
       )}
       {isGameAlertVisible && (
-        <CreditsGameAlertContainer>
+        <CreditsGameAlertContainer isTotalWin={isTotalWin}>
           <CreditsGameAlert
             variant={variant}
             bonusStatuses={bonusStatuses}

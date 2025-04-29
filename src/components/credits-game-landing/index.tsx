@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import { Gap } from "@alfalab/core-components/gap";
 
@@ -40,10 +41,19 @@ export const CreditsGameLanding = ({ variant }: Props) => {
   const redirectToGame = () => {
     LS.setItem(LSKeys.CREDITS_GAME_LANDING_CLICK, true);
 
+    window.gtag("event", "3678_start_click", {
+      variant_name: "ghk_3678_1",
+      id: LS.getItem(LSKeys.USER_UUID, ""),
+    });
+
     navigate(`${gameVariantHref}`);
   };
 
   useEffect(() => {
+    if (!LS.getItem(LSKeys.USER_UUID, "")) {
+      LS.setItem(LSKeys.USER_UUID, uuidv4());
+    }
+
     if (LS.getItem(LSKeys.CREDITS_GAME_FINAL_CLICK, false)) {
       navigate(CREDITS_GAME_STUB);
     } else if (LS.getItem(LSKeys.CREDITS_GAME_BONUS_CLICK, false)) {
