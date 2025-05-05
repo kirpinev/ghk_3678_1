@@ -48,7 +48,7 @@ export const CreditsGameStub = () => {
       </div>
 
       <div className={styles.button}>
-        <ButtonMobile block view="primary" href="" onClick={getOneMonthSub}>
+        <ButtonMobile block view="primary" href="https://alfa.me/asCRD" onClick={getOneMonthSub}>
           1 месяц подписки бесплатно
         </ButtonMobile>
         <Gap size={16} />
