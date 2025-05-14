@@ -52,7 +52,7 @@ export const CreditsGameStub = () => {
           1 месяц подписки бесплатно
         </ButtonMobile>
         <Gap size={16} />
-        <ButtonMobile block view="secondary" href="alfabank://">
+        <ButtonMobile block view="secondary" href="https://online.alfabank.ru/dashboard">
           На главный
         </ButtonMobile>
       </div>
