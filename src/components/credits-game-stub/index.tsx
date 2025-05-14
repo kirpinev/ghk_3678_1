@@ -2,7 +2,6 @@ import smile from "../../assets/credits-game/smile.png";
 import { Typography } from "@alfalab/core-components/typography";
 import { ButtonMobile } from "@alfalab/core-components/button/mobile";
 import styles from "./index.module.css";
-import { Gap } from "@alfalab/core-components/gap";
 import { BONUS_CONFIG } from "../../constants/credits-game";
 import { LS, LSKeys } from "../../ls";
 
@@ -50,10 +49,6 @@ export const CreditsGameStub = () => {
       <div className={styles.button}>
         <ButtonMobile block view="primary" href="https://alfa.me/asCRD" onClick={getOneMonthSub}>
           1 месяц подписки бесплатно
-        </ButtonMobile>
-        <Gap size={16} />
-        <ButtonMobile block view="secondary" href="alfabank://">
-          На главный
         </ButtonMobile>
       </div>
     </>
