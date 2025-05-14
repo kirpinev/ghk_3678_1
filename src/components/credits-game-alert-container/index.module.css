@@ -13,7 +13,7 @@
     position: fixed;
     z-index: 100;
     width: 100%;
-    padding: 16px;
+    padding: 16px 16px 8px 16px;
     bottom: 72px;
     left: 0;
     animation: appear 200ms cubic-bezier(0.34, 1.2, 0.64, 1);
