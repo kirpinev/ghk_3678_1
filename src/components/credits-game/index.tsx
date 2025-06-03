@@ -323,11 +323,7 @@ export const CreditsGame = ({ variant }: Props) => {
 
   return (
     <div className={styles.layout}>
-      <CreditsGameBonusStatus
-        variant={variant}
-        attemptCount={attemptCount}
-        bonusStatuses={bonusStatuses}
-      />
+      <CreditsGameBonusStatus bonusStatuses={bonusStatuses} />
       <Gap size={2} />
       <CreditsGameLock
         lockTopImage={lockImage.top}
