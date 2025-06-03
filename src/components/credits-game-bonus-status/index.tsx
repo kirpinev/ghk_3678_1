@@ -40,6 +40,7 @@ export const CreditsGameBonusStatus = ({ bonusStatuses }: Props) => {
           view="medium"
           color="primary"
           weight="bold"
+          style={{padding: "0 16px"}}
         >
           Выиграйте лучшие условия по кредиту
         </Typography.TitleResponsive>
