@@ -41,8 +41,8 @@ export const CreditsGameLanding = ({ variant }: Props) => {
   const redirectToGame = () => {
     LS.setItem(LSKeys.CREDITS_GAME_LANDING_CLICK, true);
 
-    window.gtag("event", "3678_start_click", {
-      variant_name: "ghk_3678_1",
+    window.gtag("event", "5422_start_click", {
+      variant_name: "ghk_5422_1",
       id: LS.getItem(LSKeys.USER_UUID, ""),
     });
 

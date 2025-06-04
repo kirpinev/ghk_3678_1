@@ -48,10 +48,10 @@ export const CreditsGameAlert = ({
   const redirectToBonusLanding = () => {
     const activeBonus = BONUS_CONFIG.find(({ key }) => bonusStatuses[key]);
 
-    window.gtag("event", "3678_award_click", {
+    window.gtag("event", "5422_award_click", {
       variant_name: activeBonus
         ? activeBonus.variantName
-        : "ghk_3678_1_nothing",
+        : "ghk_5422_1_nothing",
       id: LS.getItem(LSKeys.USER_UUID, ""),
     });
 

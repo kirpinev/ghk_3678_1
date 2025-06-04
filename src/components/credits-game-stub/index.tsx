@@ -13,10 +13,10 @@ export const CreditsGameStub = () => {
         LS.getItem(LSKeys.CREDITS_GAME_BONUS_VARIANT, "noOptions"),
     );
 
-    window.gtag("event", "3678_podpiska_click", {
+    window.gtag("event", "5422_podpiska_click", {
       variant_name: activeBonus
         ? activeBonus.variantName
-        : "ghk_3678_1_nothing",
+        : "ghk_5422_1_nothing",
       id: LS.getItem(LSKeys.USER_UUID, ""),
     });
   };

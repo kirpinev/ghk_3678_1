@@ -57,7 +57,7 @@ export const BONUS_CONFIG: BonusConfig[] = [
     buttonText: "награды",
     href: CREDITS_GAME_FINAL_PAYMENT_SCHEDULE,
     bonusVariant: "paymentSchedule",
-    variantName: "ghk_3678_1_gybkiy_graphic",
+    variantName: "ghk_5422_1_gybkiy_graphic",
     win_option: "gybkiy_graphic",
   },
   {
@@ -72,7 +72,7 @@ export const BONUS_CONFIG: BonusConfig[] = [
     buttonText: "награды",
     href: CREDITS_GAME_FINAL_PROTECTION,
     bonusVariant: "protection",
-    variantName: "ghk_3678_1_zashita_ot_prosrochki",
+    variantName: "ghk_5422_1_zashita_ot_prosrochki",
     win_option: "zashita_ot_prosrochki",
   },
   {
@@ -83,7 +83,7 @@ export const BONUS_CONFIG: BonusConfig[] = [
     buttonText: "награды",
     href: CREDITS_GAME_FINAL_PAYMENT_DATE,
     bonusVariant: "paymentDate",
-    variantName: "ghk_3678_1_vybor_daty",
+    variantName: "ghk_5422_1_vybor_daty",
     win_option: "vybor_daty",
   },
   {
@@ -94,7 +94,7 @@ export const BONUS_CONFIG: BonusConfig[] = [
     buttonText: "награду",
     href: CREDITS_GAME_FINAL_REDUCED_RATE,
     bonusVariant: "reducedRate",
-    variantName: "ghk_3678_1_snizhenie",
+    variantName: "ghk_5422_1_snizhenie",
     win_option: "snizhenie",
   },
 ];

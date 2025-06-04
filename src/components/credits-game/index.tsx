@@ -27,6 +27,7 @@ import { CreditsGameTimer } from "../credits-game-timer";
 import { useNavigate } from "react-router";
 
 import styles from "./index.module.css";
+import {v4 as uuidv4} from "uuid";
 
 const getRandomSmiles = () => {
   const sourceArray = [0, 1, 2, 3];
@@ -165,8 +166,8 @@ export const CreditsGame = ({ variant }: Props) => {
   }, [attemptCount, randomSmileVariants, variant, setTimeoutSafe]);
 
   const checkAnswer = useCallback(() => {
-    window.gtag("event", "3678_open_lock_click", {
-      variant_name: "ghk_3678_1",
+    window.gtag("event", "5422_open_lock_click", {
+      variant_name: "ghk_5422_1",
       id: LS.getItem(LSKeys.USER_UUID, ""),
     });
 
@@ -191,10 +192,10 @@ export const CreditsGame = ({ variant }: Props) => {
   const refreshGame = useCallback(() => {
     const activeBonus = BONUS_CONFIG.find(({ key }) => bonusStatuses[key]);
 
-    window.gtag("event", "3678_again_click", {
+    window.gtag("event", "5422_again_click", {
       variant_name: activeBonus
         ? activeBonus.variantName
-        : "ghk_3678_1_nothing",
+        : "ghk_5422_1_nothing",
       id: LS.getItem(LSKeys.USER_UUID, ""),
     });
 
@@ -320,6 +321,12 @@ export const CreditsGame = ({ variant }: Props) => {
       navigate(activeBonus?.href as string);
     }
   }, [bonusStatuses]);
+
+  useEffect(() => {
+    if (!LS.getItem(LSKeys.USER_UUID, "")) {
+      LS.setItem(LSKeys.USER_UUID, uuidv4());
+    }
+  }, []);
 
   return (
     <div className={styles.layout}>
